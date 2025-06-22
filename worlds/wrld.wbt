@@ -1,0 +1,137 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+
+WorldInfo {
+  basicTimeStep 32
+}
+
+Viewpoint {
+  orientation -0.6 1 0 1.2
+  position 0.0 0.8 1.6
+}
+
+TexturedBackground {}
+TexturedBackgroundLight {}
+
+Floor {
+  translation 0 0 0
+}
+
+Robot {
+  name "CPGDog"
+  controller "controlador"
+  translation 0 0.35 0
+  rotation 1 0 0 1.5708  # ← rotamos todo el robot 90° en X
+  physics Physics { density 100 }
+  children [
+    Solid {
+      name "body"
+      translation 0 0.1 0
+      children [
+        Shape {
+          geometry Box {
+            size 0.3 0.1 0.3
+          }
+          appearance Appearance {
+            material Material {
+              diffuseColor 0.6 0.6 0.6
+            }
+          }
+        }
+      ]
+      boundingObject Box { size 0.3 0.1 0.3 }
+      physics Physics { density 3000 }
+    }
+
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0.15 0.1 0.15
+      }
+      device [ RotationalMotor { name "motor_fr" } ]
+      endPoint Solid {
+        name "leg_fr"
+        translation 0.15 0 0.15
+        children [
+          Shape {
+            geometry Box { size 0.05 0.1 0.05 }
+            appearance Appearance {
+              material Material { diffuseColor 1 0 0 }
+            }
+          }
+        ]
+        boundingObject Box { size 0.05 0.1 0.05 }
+        physics Physics { density 200 }
+      }
+    }
+
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.15 0.1 0.15
+      }
+      device [ RotationalMotor { name "motor_fl" } ]
+      endPoint Solid {
+        name "leg_fl"
+        translation -0.15 0 0.15
+        children [
+          Shape {
+            geometry Box { size 0.05 0.1 0.05 }
+            appearance Appearance {
+              material Material { diffuseColor 0 1 0 }
+            }
+          }
+        ]
+        boundingObject Box { size 0.05 0.1 0.05 }
+        physics Physics { density 200 }
+      }
+    }
+
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor 0.15 0.1 -0.15
+      }
+      device [ RotationalMotor { name "motor_br" } ]
+      endPoint Solid {
+        name "leg_br"
+        translation 0.15 0 -0.15
+        children [
+          Shape {
+            geometry Box { size 0.05 0.1 0.05 }
+            appearance Appearance {
+              material Material { diffuseColor 0 0 1 }
+            }
+          }
+        ]
+        boundingObject Box { size 0.05 0.1 0.05 }
+        physics Physics { density 200 }
+      }
+    }
+
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 1
+        anchor -0.15 0.1 -0.15
+      }
+      device [ RotationalMotor { name "motor_bl" } ]
+      endPoint Solid {
+        name "leg_bl"
+        translation -0.15 0 -0.15
+        children [
+          Shape {
+            geometry Box { size 0.05 0.1 0.05 }
+            appearance Appearance {
+              material Material { diffuseColor 1 1 0 }
+            }
+          }
+        ]
+        boundingObject Box { size 0.05 0.1 0.05 }
+        physics Physics { density 200 }
+      }
+    }
+  ]
+}
