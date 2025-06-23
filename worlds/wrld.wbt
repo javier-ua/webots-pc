@@ -24,7 +24,7 @@ Robot {
   name "CPGDog"
   controller "controlador"
   translation 0 0.35 0
-  rotation 1 0 0 1.5708  # ← rotamos todo el robot 90° en X
+  rotation 1 0 0 1.5708  
   physics Physics { density 100 }
   children [
     Solid {

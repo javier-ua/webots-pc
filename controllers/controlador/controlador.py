@@ -2,16 +2,16 @@ from controller import Robot
 import numpy as np
 from scipy.integrate import solve_ivp
 
-# Inicializar robot y tiempo de simulación
+# Inicialización del robot
 robot = Robot()
 timestep = int(robot.getBasicTimeStep())
 dt = timestep / 1000.0  # en segundos
 
-# Obtener motores
+# Motores
 nombres_motores = ["motor_fl", "motor_fr", "motor_bl", "motor_br"] 
 motores = [robot.getDevice(nombre) for nombre in nombres_motores]
 
-# Activar control por velocidad
+# Controlador de motores
 for motor in motores:
     motor.setPosition(float('inf'))
     motor.setVelocity(0.0)
@@ -22,7 +22,7 @@ omega = np.array([2.0] * N)   # frecuencia natural
 K = 1.2                       # acoplamiento entre osciladores
 A = 0.6                       # amplitud del movimiento (en rad)
 
-# Fases iniciales para patrón de caminata secuencial
+# Fases iniciales para caminata secuencial
 # Orden: FL, FR, BL, BR
 phi_0 = np.array([0.0, np.pi/2, np.pi, 3*np.pi/2])
 
